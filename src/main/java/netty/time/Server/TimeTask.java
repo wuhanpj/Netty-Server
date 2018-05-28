@@ -10,6 +10,9 @@ public class TimeTask implements Runnable {
 	
 	public static final String CHARSET = "UTF-8";
 
+	/**
+	 * 线程负责轮询连接池的每个通道，向对方发送查询指令
+	 */
 	public void run() {
 		 sendTaskLoop:
 			 for(;;){
@@ -23,13 +26,14 @@ public class TimeTask implements Runnable {
 		                ChannelHandlerContext ctx = (ChannelHandlerContext)map.get(key);
 		                if(!ctx.channel().isActive()) {
 		                	// 删除已经断开的通道
-		                	System.out.println("delete uuid : " + key);
+		                	System.out.println("delete id : " + key);
 		                	map.remove(key);
 		                	GatewayService.removeGatewayChannel(key);
 		                	continue;
 		                }
 //			                logger.info("channel id is: " + key);
 //			                logger.info("channel: " + ctx.channel().isActive());
+		                // 查询指令
 		                byte[] b = new byte[8];
 		            	b[0] = (byte) 0xCC;
 		            	b[1] = (byte) 0x33;
