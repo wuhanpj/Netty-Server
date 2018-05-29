@@ -32,7 +32,7 @@ public class TimeServer {
             serverBootstrap = serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
             	@Override
             	public void initChannel(SocketChannel ch) throws Exception {
-            		ch.pipeline().addLast(new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS));
+            		ch.pipeline().addLast(new IdleStateHandler(8, 0, 0, TimeUnit.SECONDS));
             		ch.pipeline().addLast(
             				new TimeServerHandle()
                             //new WriteTimeoutHandler(10),
