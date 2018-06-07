@@ -33,16 +33,28 @@ public class TimeTask implements Runnable {
 		                }
 //			                logger.info("channel id is: " + key);
 //			                logger.info("channel: " + ctx.channel().isActive());
-		                // 查询指令
+//		                // 查询指令
+//		                byte[] b = new byte[8];
+//		            	b[0] = (byte) 0xCC;
+//		            	b[1] = (byte) 0x33;
+//		            	b[2] = (byte) 0x01;
+//		            	b[3] = (byte) 0x00;
+//		            	b[4] = (byte) 0x00;
+//		            	b[5] = (byte) 0x00;
+//		            	b[6] = (byte) 0xC3;
+//		            	b[7] = (byte) 0x3C;		
+		                
+		                // 发GPS的回传指令
 		                byte[] b = new byte[8];
-		            	b[0] = (byte) 0xCC;
-		            	b[1] = (byte) 0x33;
-		            	b[2] = (byte) 0x01;
-		            	b[3] = (byte) 0x00;
-		            	b[4] = (byte) 0x00;
-		            	b[5] = (byte) 0x00;
-		            	b[6] = (byte) 0xC3;
-		            	b[7] = (byte) 0x3C;			                
+		                b[0] = (byte) 0xFF;
+		                b[1] = (byte) 0xAA;
+		                b[2] = (byte) 0x03;
+		                b[3] = (byte) 0x0C;
+		                b[4] = (byte) 0x00;
+		                b[5] = (byte) 0x00;
+		                b[6] = (byte) 0x00;
+		                b[7] = (byte) 0x00;
+		                
 		            	final ByteBuf time = ctx.alloc().buffer(b.length);
 		                time.writeBytes(b);
 		                ctx.writeAndFlush(time); // (3)
